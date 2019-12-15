@@ -1,6 +1,8 @@
 
 <html>
 <head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <title></title>
 <meta name="" content="">
 <link href="css/mp.css" type="text/css" rel="stylesheet" />
@@ -37,5 +39,115 @@ $(document).ready(function() {
     
 	</div>
 </div>
-</body>
+<style>body {
+	margin: 0;
+	padding: 0;
+}
+
+#main-container {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+.page {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 1;
+	overflow-y: scroll;
+}
+
+.page-default {
+	z-index: 2;
+	display: block!important;	
+}
+
+.page-current {
+	-webkit-transition: transform .5s ease-in-out;
+	-moz-transition: transform .5s ease-in-out;
+	transition: transform .5s ease-in-out;
+	
+	-webkit-transform: translate3d(0, 0, 0)!important;
+	-moz-transform: translate3d(0, 0, 0)!important;
+	transform: translate3d(0, 0, 0)!important;
+}
+
+.mp-bottom {
+	-webkit-transform: translate3d(0, -100%, 0);
+	-moz-transform: translate3d(0, -100%, 0);
+	transform: translate3d(0, -100%, 0);
+}
+
+.mp-top {
+	-webkit-transform: translate3d(0, 100%, 0);
+	-moz-transform: translate3d(0, 100%, 0);
+	transform: translate3d(0, 100%, 0);
+}
+
+.mp-right {
+	-webkit-transform: translate3d(-100%, 0, 0);
+	-moz-transform: translate3d(-100%, 0, 0);
+	transform: translate3d(-100%, 0, 0);
+}
+
+.mp-left {
+	-webkit-transform: translate3d(100%, 0, 0);
+	-moz-transform: translate3d(100%, 0, 0);
+	transform: translate3d(100%, 0, 0);
+}
+
+.mp-blue {background-color: #44d0ee;}
+.mp-green {background-color: #a7f83a;}
+.mp-yellow {background-color: #fdf2b7;}
+.mp-red {background-color: #fb7171;}
+
+.page-container {padding: 50px;}
+
+h1, a, p {
+	font-family: Tahoma;
+	color: #333;
+	text-decoration: none;
+}
+
+hr {
+	background-color: #333;
+	border: 1px solid #333;
+	}</style>
+	</body>
+<script>
+	var mpPageCurrent = 'homepage';
+var hashValue = window.location.hash;
+$(document).ready(function() { 
+	$(document).on("click",'.mp-link', function(event){
+		mpPageCurrent = $(this).attr('mp-target');
+		
+		$('.page').removeClass('page-default');
+		removeCurrentClass();
+		$('#'+mpPageCurrent).addClass('page-default').addClass('page-current');
+	});
+});
+
+(function($) {
+	$.fn.mbInit = function () {
+		if(hashValue=='') {
+			$('#homepage').addClass('page-default').addClass('page-current');
+		} else {
+			$(hashValue).addClass('page-default').addClass('page-current');
+		}
+	}
+})(jQuery);
+
+function removeCurrentClass(){
+  setTimeout(function(){
+    $('.page:not(.page-default)').removeClass('page-current');
+  },500);
+};</script>
 </html>
